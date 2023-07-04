@@ -1,0 +1,21 @@
+﻿@page
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<header>
+    <h1>@ViewData["Title"]</h1>
+    @{
+
+        if (Request.Cookies["token"]!=null)
+        {
+            <form class="form-inline" method="post" asp-controller="Authen" asp-action="Logout">
+                <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
+            </form>
+        }
+        else
+        {
+            <p>You have successfully logged out of the application.</p>
+        }
+    }
+</header>

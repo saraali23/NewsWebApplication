@@ -1,0 +1,48 @@
+﻿@model IEnumerable<NewsAppClasses.Author>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="color:blue">Authors</h1>
+
+<p>
+    <a asp-action="Create">Add Author</a>
+</p>
+
+<div class="col justify-content-center alert alert-info">
+    <span>
+        Sort By (Ascending):
+    </span>
+
+    <span>
+        <button class="btn btn-primary m-2" onclick="location.href='@Url.Action("SortedIndex", "Authors",new{attribute="Name"})' ">Name</button>
+    </span>
+    <span>
+        <button class="btn btn-primary m-2" onclick="location.href='@Url.Action("SortedIndex", "Authors",new{attribute="Clear"})'">Clear</button>
+    </span>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

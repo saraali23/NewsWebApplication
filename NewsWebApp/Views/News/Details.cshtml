@@ -1,0 +1,27 @@
+﻿@model NewsAppClasses.News
+
+@{
+    ViewData["Title"] = "Details";
+}   
+
+<h1 style="text-align:center;color:cornflowerblue;font-weight:bold">@Model.Title</h1>
+
+<div class="card m-auto col-10 ">
+        <div class="w-80 h-30">
+            <img class="card-img-top" src=@(ImageTransformationHelper.StringFromByteArray(Model.Image)) alt=@Model.Title>
+        </div>
+            
+        <div class="card-body w-100" style="height=20">
+            <p class="card-text" style="color:darkcyan;font-weight:bold">Written by: @Model.Author.Name</p>
+            <p class="card-title" style="text-align:center;">@Model.NewsArticle</p>
+            <p class="card-text" style="color:darkcyan;font-weight:bold;">Creation Date: @Model.CreationDate.ToShortDateString()</p>
+            <p class="card-text" style="color:darkcyan;font-weight:bold;">Publication Date: @Model.PublicationDate.ToShortDateString()</p>
+        </div>
+</div>
+@if (Context.Request.Cookies["token"] != null)
+{
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+}

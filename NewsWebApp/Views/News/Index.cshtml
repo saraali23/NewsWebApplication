@@ -1,0 +1,121 @@
+﻿@model IEnumerable<NewsAppClasses.News>
+
+@{
+    ViewData["Title"] = "All News";
+
+   
+}
+
+<h1 style="color:blue">News</h1>
+
+@if (Context.Request.Cookies["token"] != null)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+
+
+<div class="col justify-content-center alert alert-info">
+    <div>
+        <span>
+            Sort By (Ascending):
+        </span>
+
+        <span>
+            <button class="btn btn-primary m-2" onclick="location.href='@Url.Action("SortedIndex", "News",new{attribute="Title"})' ">Title</button>
+        </span>
+            <span>
+            <button class="btn btn-primary m-2" onclick="location.href='@Url.Action("SortedIndex", "News",new{attribute="Author Name"})'">Author Name</button>
+        </span>
+        <span>
+            <button class="btn btn-primary m-2" onclick="location.href='@Url.Action("SortedIndex", "News",new{attribute="Publication Date"})' ">Publication Date</button>
+        </span>
+        <span>
+            <button class="btn btn-primary m-2" onclick="location.href='@Url.Action("SortedIndex", "News",new{attribute="Clear"})'">Clear</button>
+        </span>
+   </div>
+
+    <div class="mt-1">
+        <span>
+            Filter by:
+        </span>
+        <span class="border border-secondary border- p-1 ">
+            <span class="pe-2 ps-2">
+                Author's Name:
+            </span>
+
+            <select id="authorList"  asp-items="ViewBag.Authors"></select>
+            
+        </span>
+        
+        
+        
+
+
+   </div>
+</div>
+
+
+<div id="newsList" class="container d-flex row justify-content-evenly mt-5">
+    @foreach (var item in Model)
+    {
+        <div class="card col-lg-3  col-md-5  col-sm-10 m-2">
+            <div class="w-100 h-75">
+                <img class="card-img-top" src=@(ImageTransformationHelper.StringFromByteArray(item.Image)) alt=@item.Title>
+            </div>
+            
+            <div class="card-body w-100" style="height=20">
+                <h4 class="card-title">@item.Title</h4>
+                <p class="card-text">Author: @item.Author.Name</p>
+                <p class="card-text">PublicationDate: @item.PublicationDate.ToShortDateString()</p>
+                <a asp-action="Details" asp-controller="News" asp-route-id="@item.Id" class="btn btn-primary">See More</a>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+@*Problem is that page doesn't reload so changes don't appear*@
+
+@section Scripts {
+    <script>
+
+            $('#authorList').on('change', function () {
+                var selectedValue = $(this).val(); // Get the selected value
+
+                // Make an AJAX request to the controller
+                $.ajax({
+                url: '/News/FilteredIndex',
+                    type: 'POST',
+                    data: {
+                        attribute: "Author Name",
+                        value: selectedValue // Pass the selected value to the controller
+                    },
+                    success: function (response) {
+                    $("#newsList").load(location.href + " #newsList");
+                    $("#newsList").load(location.href + " #newsList>*", "");
+
+                    }
+                   
+               
+                });
+            });
+        
+
+    </script>
+
+
+
+}
+
+
+
+
+
+
+
+
+
+   
