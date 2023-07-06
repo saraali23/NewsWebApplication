@@ -77,27 +77,29 @@ namespace NewsWebApp.Controllers
           
         }
 
-        public async Task<IActionResult> FilteredIndex(string attribute,string value)
+        public async Task<IActionResult> FilteredIndex(string value)
         {
             var news = await newsRepo.GetAll();
             if (news == null)
                 return RedirectToAction("CustomError", "Home", new { message = "Entity does't exist" });
 
-            ViewData["Authors"] = new SelectList(await authorRepo.GetAll(), "Name", "Name");
-            switch (attribute)
-            {
-                case "Author Name":
-                    {
-                        return View("Index", news.Where(n=>n.Author.Name==value));
+            ViewData["Authors"] = new SelectList(await authorRepo.GetAll(), "Name", "Name",value);
+            return View("Index", news.Where(n => n.Author.Name == value));
 
-                    }
+            //switch (attribute)
+            //{
+            //    case "Author Name":
+            //        {
+            //            return View("Index", news.Where(n=>n.Author.Name==value));
 
-                default:
-                    {
-                        return View("Index", news);
+            //        }
 
-                    }
-            }
+            //    default:
+            //        {
+            //            return View("Index", news);
+
+            //        }
+            //}
 
         }
 

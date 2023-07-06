@@ -18,7 +18,7 @@
 
 <div class="col justify-content-center alert alert-info">
     <div>
-        <span>
+        <span style="font-weight:bold">
             Sort By (Ascending):
         </span>
 
@@ -37,17 +37,23 @@
    </div>
 
     <div class="mt-1">
-        <span>
+        <div class="mb-3 fw-bold">
             Filter by:
-        </span>
-        <span class="border border-secondary border- p-1 ">
-            <span class="pe-2 ps-2">
-                Author's Name:
-            </span>
+        </div>
+        
+           
 
-            <select id="authorList"  asp-items="ViewBag.Authors"></select>
-            
-        </span>
+            <form method="post" action="/News/FilteredIndex">
+                <span class="border border-secondary p-3 rounded ">
+                    <span class="pe-2 ps-2 fw-bold">
+                        Author's Name:
+                    </span>
+                    <select class="m-auto" name="value" id="authorList" asp-items="ViewBag.Authors"></select>
+                <button class="btn btn-primary m-auto" type="submit">Ok</button>
+                </span>
+            </form>
+
+                  
         
         
         
@@ -80,7 +86,7 @@
 @*Problem is that page doesn't reload so changes don't appear*@
 
 @section Scripts {
-    <script>
+   @* <script>
 
             $('#authorList').on('change', function () {
                 var selectedValue = $(this).val(); // Get the selected value
@@ -94,17 +100,29 @@
                         value: selectedValue // Pass the selected value to the controller
                     },
                     success: function (response) {
-                    $("#newsList").load(location.href + " #newsList");
-                    $("#newsList").load(location.href + " #newsList>*", "");
+                    //$("#newsList").load(location.href + " #newsList");
+                    //$("#newsList").load(location.href + " #newsList>*", "");
+                         console.log(response);
 
-                    }
+                    alert(response);
+                    
+
+                    },
+                    fail:function (response) {
+                        //$("#newsList").load(location.href + " #newsList");
+                        //$("#newsList").load(location.href + " #newsList>*", "");
+
+                    alert(response);
+
+
+                    },
                    
                
                 });
             });
         
 
-    </script>
+    </script>*@
 
 
 

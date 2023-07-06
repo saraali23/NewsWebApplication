@@ -6,9 +6,9 @@
 
 <h1 style="text-align:center;color:cornflowerblue;font-weight:bold">@Model.Title</h1>
 
-<div class="card m-auto col-10 ">
-        <div class="w-80 h-30">
-            <img class="card-img-top" src=@(ImageTransformationHelper.StringFromByteArray(Model.Image)) alt=@Model.Title>
+<div class="card m-auto col-10 border border-secondary p-3 rounded ">
+        <div class="w-80 h-20">
+            <img class="card-img-top w-50 ms-auto me-auto d-block mt-10" src=@(ImageTransformationHelper.StringFromByteArray(Model.Image)) alt=@Model.Title>
         </div>
             
         <div class="card-body w-100" style="height=20">

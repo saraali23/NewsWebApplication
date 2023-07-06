@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using NewsAppClasses;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -13,6 +12,8 @@ namespace NewsAPI.Data.Contexts
         public MainDBContext(DbContextOptions<MainDBContext> options):base(options)
         {
 
+
         }
+        
     }
 }
